@@ -6,6 +6,15 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CodeLens (Launch) - Driver",
+            "request": "launch",
+            "mainClass": "Driver",
+            "projectName": "coen346_project1_9ce2e01a",
+            "args": "log.txt"
+
+        },
+        {
+            "type": "java",
             "name": "Debug (Launch) - Current File",
             "request": "launch",
             "mainClass": "${file}"

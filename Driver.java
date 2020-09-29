@@ -1,42 +1,23 @@
-import java.nio.file.Files;
-import java.util.ArrayList;
-import java.util.List;
 import java.io.IOException;
-import java.io.*;
 
 
 public class Driver {
-    public static void main(String[] args){
+    public static void main(String[] args) throws IOException {
 
-        if(args.length == 1){
-            try{
-                File path = new File(args[0]);
-                if(!path.canRead())
-                    return;
 
-                List<Integer> temp = new ArrayList<>();
+        try{
+            ReadFile rd = new ReadFile(args);
+            Bulb b = new Bulb(rd.getList());
 
-                FileInputStream fileinput = new FileInputStream(path);
+            
+            b.findDefective();
 
-                int c;
-                while( (c = fileinput.read()) != -1){
-                    if((char) c != '\n'){
-                        temp.add(Character.getNumericValue(c));
-                    }
-                }
-
-                Bulb bulb = new Bulb(temp);
-
-                bulb.findDefective();
-
-                bulb.printDefective();
-
-                fileinput.close();
-            }
-            catch(IOException e){
-                //Pass
-            }
-
+            b.printDefective();
         }
+        catch(IOException e){
+            e.printStackTrace();
+        }
+        
+
     }
 }

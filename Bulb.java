@@ -1,38 +1,21 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
 public class Bulb {
-    private int[] bulbs;
+    private boolean[] bulbs;
     private int threadCounter;
     private List<Integer> defective;
     private final int SIZE;
     
-    public Bulb(List<Integer> list){
+    public Bulb(boolean[] list){
         this.threadCounter = 0;
-        this.SIZE = list.remove(0);
-        this.bulbs = new int[this.SIZE];
-
+        this.SIZE = list.length;
+        this.bulbs = Arrays.copyOf(list, SIZE);
         defective = new ArrayList<>();
-        for(int i = 0 ; i < SIZE ; i++){
-            this.bulbs[i] = list.get(i);
-
-        }
-    }
-
-    public boolean isValid(){
-        if(bulbs.length == 0)
-            return false;
-        
-        boolean flag = false;
-
-        for(int x : this.bulbs){
-            flag = (x == 1) || (x == 0);
-        }
-
-        return !flag;
     }
 
     public void findDefective(){
@@ -72,14 +55,14 @@ public class Bulb {
         boolean flag = false;
 
         for(int i = low ; i <= high ; i++)
-            if(bulbs[i] == 0)
+            if(!bulbs[i])
                 flag = true;
 
         return flag;
     }
 
     private synchronized void checkDefective(int item){
-        if(bulbs[item] == 0)
+        if(!bulbs[item])
             defective.add(item+1);
     }
 
